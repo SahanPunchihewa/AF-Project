@@ -39,7 +39,7 @@ const Header = () => {
             to="/"
             className="flex-none text-xl font-semibold dark:text-white"
           >
-            AF Project
+            Citizen Connect
           </Link>
           <div className="sm:hidden">
             <button
