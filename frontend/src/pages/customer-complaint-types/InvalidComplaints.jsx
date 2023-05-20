@@ -8,6 +8,8 @@ const InvalidComplaints = () => {
     const [complaints, setComplaints] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const id=localStorage.getItem("uId");
+	var count=0;
+
 
 
     useEffect(() => {
@@ -19,9 +21,17 @@ const InvalidComplaints = () => {
 		});
 	}, []);
 
+	complaints
+		.filter((elem) => elem.citizenId._id == id && elem.complaintStatus == "invalid")
+		.map(
+			() => (
+			count++
+			)
+		);
+
     return ( 
         <>
-		{complaints!= "" ?(
+		{count !== 0 ?(
         <div>
         <div className="flex gap-2 ml-[400px]">
 				<input
