@@ -14,7 +14,7 @@ export const SampleProvider = ({ children }) => {
     queryKey: ["post"],
     queryFn: SampleAPI.getAllPosts,
     onSuccess: () => {
-      makeToast({ type: "success", message: "Data fetched successfully" });
+      //makeToast({ type: "success", message: "Data fetched successfully" });
     },
   });
 
