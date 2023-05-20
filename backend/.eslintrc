@@ -4,7 +4,8 @@
 	"plugins": ["@babel"],
 	"env": {
 		"node": true,
-		"es2021": true
+		"es2021": true,
+		"jest": true
 	},
 	"rules": {
 		"indent": ["error", "tab"],
