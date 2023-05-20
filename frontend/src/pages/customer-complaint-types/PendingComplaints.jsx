@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import ComplaintAPI from "../../contexts/api/ComplaintAPI";
 import {ImSearch} from "react-icons/im";
+import { Link } from "react-router-dom";
 
 const PendingComplaints = () => {
 
@@ -103,6 +104,16 @@ const PendingComplaints = () => {
 											<button onClick={() => deleteProduct(product._id)}>
 												<RiDeleteBin2Fill className="fill-red-600 w-[20px] h-[20px] hover:fill-red-500 -ml-5 " />
 											</button>
+										</div>
+									</td>
+									<td className="px-6 py-4">
+										<div>
+											<Link to={`/complaint/edit/${complaint._id}`}>
+											<button className="bg-gray-500 w-20 text-white rounded py-1 font-semibold hover:bg-gray-700" >
+												edit
+											</button>
+											</Link>
+											
 										</div>
 									</td>
 								</tr>
