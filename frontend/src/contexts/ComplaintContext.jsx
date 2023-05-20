@@ -14,19 +14,7 @@ export function ComplaintProvider({ children }) {
 	const [complaints, setComplaints] = useState([]);
 
 	// Complaints
-	const [complaint, setComplaint] = useState({
-
-       complaintTitle:"",
-       description:"",
-	   authority:"",
-       province:"",
-       district:"",
-       location:"",
-       emergencyNo:"",
-       image:"",
-       citizenId:"",
-       complaintStatus:"",
-	});
+	const [complaint, setComplaint] = useState({});
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -86,7 +74,7 @@ export function ComplaintProvider({ children }) {
 		ComplaintAPI.editComplaint(values.id, newComplaint)
 			.then((response) => {
 				//console.log(res.data);
-				//navigate("/viewres");
+				navigate("/customer/dashboard");
 				// eslint-disable-next-line no-console
 				console.log("updated successfully...");
 				//navigate("/camping-vendor-dashboard");
