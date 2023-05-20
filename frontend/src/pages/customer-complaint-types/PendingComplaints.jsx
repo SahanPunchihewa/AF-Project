@@ -8,6 +8,7 @@ const PendingComplaints = () => {
     const [complaints, setComplaints] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const id=localStorage.getItem("uId");
+	var count=0;
 
     useEffect(() => {
 		//setIsLoading(true);
@@ -15,12 +16,22 @@ const PendingComplaints = () => {
 			setComplaints(response.data);
 		//console.log(products.values("productName"));
 		//	setIsLoading(false);
+		
 		});
 	}, []);
 
+	complaints
+		.filter((elem) => elem.citizenId._id == id && elem.complaintStatus === "pending")
+		.map(
+			() => (
+			count++
+			)
+		);
+
+
     return ( 
         <>
-		{complaints != "" ?(
+		{count !== 0 ?(
 		<div>		
         <div className="flex gap-2 ml-[400px]">
 				<input

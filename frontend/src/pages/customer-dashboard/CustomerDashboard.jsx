@@ -103,7 +103,7 @@ const status=localStorage.getItem("accountStatus")
             <ResolvedComplaints/>
         ): type==="invalid"? (
             <InvalidComplaints/>
-        ):(<></>)}
+        ):(<div>hello</div>)}
      </div>
 
 
