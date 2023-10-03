@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminAPI from "./api/AdminAPI";
 import makeToast from "../components/toast";
+import Joi from "joi";
 
 const AdminContext = createContext();
 
@@ -13,6 +14,15 @@ export function AdminProvider({ children }) {
     email: "",
     password: "",
   });
+
+  // Implement Joi for Unvalidated Input
+  const SignUpFormSchema = Joi.object({
+    name: Joi.string().min(2).max(20).message("Owner name should be between 2 and 20 characters"),
+    email: Joi.string().email({ tlds: { allow: false } }).message("Email should be valid"),
+    password: Joi.string().min(4).message("Password should be valid"),
+  })
+
+
 
   // Admin Login
   const AdminLogin = (values) => {
@@ -37,6 +47,13 @@ export function AdminProvider({ children }) {
     AdminAPI.register(values)
       .then((response) => {
         setAdmins([...admins, response.data]);
+        const { error } = SignUpFormSchema.validate(values);
+
+				// Unvalidated Input Fixed
+				if (error) {
+					makeToast({ type: "error", message: error.details[0].message });
+					return;
+				}
         makeToast({ type: "success", message: "Registration Successful" });
         window.location.href = "/admin/login";
       })

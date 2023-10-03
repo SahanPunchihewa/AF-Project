@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomerAPI from "./api/CustomerAPI";
 import makeToast from "../components/toast";
+import Joi from "joi";
 
 const CustomerContext = createContext();
 
@@ -21,12 +22,31 @@ export function CustomerProvider({ children }) {
     password: "",
   });
 
+    // Implement Joi for Unvalidated Input
+    const SignUpFormSchema = Joi.object({
+      name: Joi.string().min(2).max(20).message("Owner name should be between 2 and 20 characters"),
+      email: Joi.string().email({ tlds: { allow: false } }).message("Email should be valid"),
+      nic: Joi.string().min(10).max(10).message("NIC should be 10 characters"),
+      address: Joi.string().min(5).max(100).message("Address should be more than 5 characters"),
+      contactNumber: Joi.string().min(10).max(10).message("Phone number should be 10 characters"),
+      password: Joi.string().min(4).message("Password should be valid"),
+    })
+
   // Customer Register
 
   const CustomerRegister = async (values) => {
     CustomerAPI.register(values)
       .then((response) => {
         setCustomers([...customers, response.data]);
+
+        const { error } = SignUpFormSchema.validate(values);
+
+				// Unvalidated Input Fixed
+				if (error) {
+					makeToast({ type: "error", message: error.details[0].message });
+					return;
+				}
+        
         makeToast({ type: "success", message: "Registration Successful" });
         window.location.href = "/customer/login";
       })
